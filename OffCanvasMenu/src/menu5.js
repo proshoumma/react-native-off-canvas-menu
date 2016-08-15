@@ -3,13 +3,19 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  StatusBar
 } from 'react-native'
 
 export default class Menu5 extends Component {
   render() {
     return(
       <View style={styles.container}>
+        <StatusBar
+          backgroundColor="#f39c12"
+          animated={true}
+        />
+
         <Text style={styles.welcome}>
           Welcome to React Native!
         </Text>

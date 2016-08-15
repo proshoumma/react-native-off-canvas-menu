@@ -8,7 +8,8 @@ import React, { Component } from 'react'
 import {
   AppRegistry,
   Text,
-  View
+  View,
+  StatusBar
 } from 'react-native'
 
 import OffCanvas from './src/offcanvas'
@@ -30,43 +31,54 @@ class OffCanvasMenu extends Component {
   }
 
   render() {
-    return (
-      <OffCanvas
-      active={this.state.menuOpen}
-      onMenuPress={this._handleMenu.bind(this)}
-      menuItems={[
-        {
-          title: 'Menu 1',
-          renderScene: <Menu1 handleMenu={this._handleMenu.bind(this)}/>
-        },
-        {
-          title: 'Menu 2',
-          renderScene: <Menu2 handleMenu={this._handleMenu.bind(this)}/>
-        },
-        {
-          title: 'Menu 3',
-          renderScene: <Menu3 handleMenu={this._handleMenu.bind(this)}/>
-        },
-        {
-          title: 'Menu 4',
-          renderScene: <Menu4 handleMenu={this._handleMenu.bind(this)}/>
-        },
-        {
-          title: 'Menu 5',
-          renderScene: <Menu5 handleMenu={this._handleMenu.bind(this)}/>
-        },
-        {
-          title: 'Menu 6',
-          renderScene: <Menu6 handleMenu={this._handleMenu.bind(this)}/>
-        },
-        {
-          title: 'Menu 7',
-          renderScene: <Menu7 handleMenu={this._handleMenu.bind(this)}/>
-        }
-      ]}
-      >
+    const statusBar = this.state.menuOpen ?
+      <StatusBar
+        backgroundColor="#222222"
+        animated={true}
+      />
+    : null
 
-      </OffCanvas>
+    return (
+      <View style={{flex: 1}}>
+        {statusBar}
+
+        <OffCanvas
+        active={this.state.menuOpen}
+        onMenuPress={this._handleMenu.bind(this)}
+        backgroundColor={'#222222'}
+        menuItems={[
+          {
+            title: 'Menu 1',
+            renderScene: <Menu1 handleMenu={this._handleMenu.bind(this)}/>
+          },
+          {
+            title: 'Menu 2',
+            renderScene: <Menu2 handleMenu={this._handleMenu.bind(this)}/>
+          },
+          {
+            title: 'Menu 3',
+            renderScene: <Menu3 handleMenu={this._handleMenu.bind(this)}/>
+          },
+          {
+            title: 'Menu 4',
+            renderScene: <Menu4 handleMenu={this._handleMenu.bind(this)}/>
+          },
+          {
+            title: 'Menu 5',
+            renderScene: <Menu5 handleMenu={this._handleMenu.bind(this)}/>
+          },
+          {
+            title: 'Menu 6',
+            renderScene: <Menu6 handleMenu={this._handleMenu.bind(this)}/>
+          },
+          {
+            title: 'Menu 7',
+            renderScene: <Menu7 handleMenu={this._handleMenu.bind(this)}/>
+          }
+        ]}
+        >
+        </OffCanvas>
+      </View>
     )
   }
 
