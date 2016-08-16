@@ -14,8 +14,6 @@ class OffCanvas3D extends Component {
   constructor(props) {
     super(props)
 
-    const { height, width } = Dimensions.get('window')
-
     this._hardwareBackHandler = this._hardwareBackHandler.bind(this)
 
     this.state = {
@@ -26,9 +24,7 @@ class OffCanvas3D extends Component {
       stagArr: [],
       animatedStagArr: [],
       menuItems: this.props.menuItems,
-      activeMenu: 0,
-      windowHeight: height,
-      windowWidth: width
+      activeMenu: 0
     }
   }
 
@@ -82,12 +78,19 @@ class OffCanvas3D extends Component {
 
     return (
       <View style={[styles.offCanvasContainer, {
-        height: this.state.windowHeight,
-        width: this.state.windowWidth,
+        flex: 1,
         backgroundColor: this.props.backgroundColor
       }]}>
 
-        <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: 30}}>
+        <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0
+        }}>
           <Animated.View style={styles.menuItemsContainer}>
               {staggeredAnimatedMenus}
           </Animated.View>
@@ -98,11 +101,10 @@ class OffCanvas3D extends Component {
         onResponderTerminationRequest={() => true}
         onResponderRelease={(evt) => this._gestureControl(evt)}
         style={[styles.activityContainer, {
-          left: this.state.activityLeftPos,
-          height: this.state.windowHeight,
-          width: this.state.windowWidth,
+          flex: 1,
           backgroundColor: this.props.backgroundColor,
           transform: [
+            { translateX: this.state.activityLeftPos },
             { scale: this.state.scaleSize },
             { rotateY: rotateVal }
           ]
@@ -139,7 +141,7 @@ class OffCanvas3D extends Component {
 
   // animate stuffs with hard coded values for fine tuning
   _animateStuffs() {
-    const activityLeftPos = this.props.active ? this.state.windowWidth * (1/2) : 0
+    const activityLeftPos = this.props.active ? 150 : 0
     const scaleSize = this.props.active ? .8 : 1
     const rotate = this.props.active ? 1 : 0
     const menuTranslateX = this.props.active? 0 : -150
@@ -196,9 +198,7 @@ export default OffCanvas3D
 // structure stylesheet
 const styles = StyleSheet.create({
   offCanvasContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0
+
   },
   menuItemsContainer: {
     paddingTop: 30
@@ -215,8 +215,6 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   },
   activityContainer: {
-    top: 0,
-    position: 'absolute',
-    elevation: 0
+
   }
 })

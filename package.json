@@ -2,7 +2,7 @@
   "name": "react-native-off-canvas-menu",
   "description": "some beautifully crafted off canvas menu components for react native",
   "author": "Provash Shoumma <provash.shoumma@gmail.com> (http://asprov.net)",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "keywords": ["react-native", "react", "off-canvas", "menu"],
   "repository": {

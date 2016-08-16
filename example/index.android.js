@@ -6,7 +6,7 @@ import {
   StatusBar
 } from 'react-native'
 import Icon from 'react-native-vector-icons/EvilIcons'
-import {OffCanvas3D} from 'react-native-off-canvas-menu'
+import {OffCanvasReveal} from 'react-native-off-canvas-menu'
 
 import Menu1 from './menuScenes/menu1'
 import Menu2 from './menuScenes/menu2'
@@ -38,7 +38,7 @@ class OffCanvasMenu extends Component {
 
         {statusBar}
 
-        <OffCanvas3D
+        <OffCanvasReveal
         active={this.state.menuOpen}
         onMenuPress={this._handleMenu.bind(this)}
         backgroundColor={'#222222'}
