@@ -4,19 +4,22 @@ import {
   Text,
   View,
   StyleSheet,
-  Animated
+  Animated,
+  TouchableWithoutFeedback,
+  ScrollView,
+  BackAndroid
 } from 'react-native'
 
-export default class OffCanvas extends Component {
+class OffCanvasReveal extends Component {
   constructor(props) {
     super(props)
 
     const { height, width } = Dimensions.get('window')
 
+    this._hardwareBackHandler = this._hardwareBackHandler.bind(this)
+
     this.state = {
       activityLeftPos : new Animated.Value(0),
-      scaleSize : new Animated.Value(1.0),
-      rotate: new Animated.Value(0),
       animationDuration: 400,
       stagArr: [],
       animatedStagArr: [],
@@ -27,6 +30,7 @@ export default class OffCanvas extends Component {
     }
   }
 
+  // staggered animation configuration for menu items
   componentDidMount() {
     let stagArrNew = []
     for (let i = 0; i < this.state.menuItems.length; i++) stagArrNew.push(i)
@@ -39,28 +43,33 @@ export default class OffCanvas extends Component {
     this.setState({ animatedStagArr: animatedStagArrNew })
   }
 
+  // any update to component will fire the animation
   componentDidUpdate() {
     this._animateStuffs()
+
+    if(this.props.handleBackPress && this.props.active) {
+      BackAndroid.addEventListener('hardwareBackPress', this._hardwareBackHandler)
+    }
+
+    if(this.props.handleBackPress && !this.props.active) {
+      BackAndroid.removeEventListener('hardwareBackPress', this._hardwareBackHandler)
+    }
   }
 
   render() {
-    const rotateVal = this.state.rotate.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['0deg', '-10deg']
-    })
-
     const staggeredAnimatedMenus = this.state.stagArr.map((index) => {
       return (
-        <Animated.Text
-        style={[styles.menuItem, {
-          color: 'white',
-          transform: [
-            {translateX: this.state.animatedStagArr[index]}
-          ]
-        }]}
-        key={index}
-        onPress={this._handlePress.bind(this, index)}
-        >{this.state.menuItems[index].title.toUpperCase()}</Animated.Text>
+        <TouchableWithoutFeedback key={index} onPress={this._handlePress.bind(this, index)} style={{backgroundColor: 'red'}}>
+          <Animated.View
+          style={{ transform: [{ translateX: this.state.animatedStagArr[index] }] }}>
+            <View style={styles.menuItemContainer}>
+              {this.state.menuItems[index].icon}
+              <Text style={[styles.menuItem, { ...this.props.menuTextStyles }]}>
+                {this.state.menuItems[index].title}
+              </Text>
+            </View>
+          </Animated.View>
+        </TouchableWithoutFeedback>
       )
     })
 
@@ -71,9 +80,11 @@ export default class OffCanvas extends Component {
         backgroundColor: this.props.backgroundColor
       }]}>
 
-        <Animated.View style={styles.menuItemsContainer}>
-          {staggeredAnimatedMenus}
-        </Animated.View>
+        <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: 30}}>
+          <Animated.View style={styles.menuItemsContainer}>
+              {staggeredAnimatedMenus}
+          </Animated.View>
+        </ScrollView>
 
         <Animated.View
         onStartShouldSetResponder={() => true}
@@ -84,25 +95,28 @@ export default class OffCanvas extends Component {
           height: this.state.windowHeight,
           width: this.state.windowWidth,
           backgroundColor: this.props.backgroundColor,
-          transform: [
-            { scale: this.state.scaleSize },
-            { rotateY: rotateVal }
-          ]
+
         }]}>
 
           {this.state.menuItems[this.state.activeMenu].renderScene}
-
         </Animated.View>
 
       </View>
     )
   }
 
+  // press on any menu item, render the respective scene
   _handlePress(index) {
     this.setState({ activeMenu: index })
     this.props.onMenuPress()
   }
 
+  _hardwareBackHandler() {
+    this.props.onMenuPress()
+    return true
+  }
+
+  // control swipe left or right reveal for menu
   _gestureControl(evt) {
     const {locationX, pageX} = evt.nativeEvent
 
@@ -113,16 +127,13 @@ export default class OffCanvas extends Component {
     }
   }
 
+  // animate stuffs with hard coded values for fine tuning
   _animateStuffs() {
-    const activityLeftPos = this.props.active ? this.state.windowWidth * (1/2) : 0
-    const scaleSize = this.props.active ? .8 : 1
-    const rotate = this.props.active ? 1 : 0
+    const activityLeftPos = this.props.active ? this.state.windowWidth * (2/3) : 0
     const menuTranslateX = this.props.active? 0 : -150
 
     Animated.parallel([
       Animated.timing(this.state.activityLeftPos, { toValue: activityLeftPos, duration: this.state.animationDuration }),
-      Animated.timing(this.state.scaleSize, { toValue: scaleSize, duration: this.state.animationDuration }),
-      Animated.timing(this.state.rotate, { toValue: rotate, duration: this.state.animationDuration }),
       Animated.stagger(50, this.state.stagArr.map((item) => {
         if (this.props.active) {
           return Animated.timing(
@@ -149,6 +160,26 @@ export default class OffCanvas extends Component {
   }
 }
 
+// validate props
+OffCanvasReveal.propTypes = {
+  active: React.PropTypes.bool.isRequired,
+  onMenuPress: React.PropTypes.func.isRequired,
+  menuItems: React.PropTypes.array.isRequired,
+  backgroundColor: React.PropTypes.string,
+  menuTextStyles: React.PropTypes.object,
+  handleBackPress: React.PropTypes.bool
+}
+
+// set default props
+OffCanvasReveal.defaultProps = {
+  backgroundColor: '#222222',
+  menuTextStyles: { color: 'white' },
+  handleBackPress: true
+}
+
+export default OffCanvasReveal
+
+// structure stylesheet
 const styles = StyleSheet.create({
   offCanvasContainer: {
     position: 'absolute',
@@ -156,11 +187,16 @@ const styles = StyleSheet.create({
     left: 0
   },
   menuItemsContainer: {
-    marginTop: 30
+    paddingTop: 30
+  },
+  menuItemContainer: {
+    paddingLeft: 20,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   menuItem: {
     fontWeight: 'bold',
-    paddingLeft: 30,
+    paddingLeft: 12,
     paddingTop: 15,
     paddingBottom: 15
   },

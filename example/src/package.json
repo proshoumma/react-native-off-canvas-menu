@@ -1,0 +1,17 @@
+{
+  "name": "react-native-off-canvas-menu",
+  "description": "some beautifully crafted off canvas menu component for react native",
+  "author": "Provash Shoumma <provash.shoumma@gmail.com> (http://asprov.net)",
+  "version": "0.1.0",
+  "main": "index.js",
+  "keywords": ["react-native", "react", "off-canvas", "menu"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shoumma/react-native-off-canvas-menu"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shoumma/react-native-off-canvas-menu/issues"
+  },
+  "homepage": "https://github.com/shoumma/react-native-off-canvas-menu#readme"
+}
