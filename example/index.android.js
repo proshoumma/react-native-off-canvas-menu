@@ -40,7 +40,7 @@ class OffCanvasMenu extends Component {
 
         <OffCanvasReveal
         active={this.state.menuOpen}
-        onMenuPress={this._handleMenu.bind(this)}
+        onMenuPress={this.handleMenu.bind(this)}
         backgroundColor={'#222222'}
         menuTextStyles={{color: 'white'}}
         handleBackPress={true}
@@ -48,37 +48,37 @@ class OffCanvasMenu extends Component {
           {
             title: 'Menu 1',
             icon: <Icon name="camera" size={35} color='#ffffff' />,
-            renderScene: <Menu1 handleMenu={this._handleMenu.bind(this)}/>
+            renderScene: <Menu1 handleMenu={this.handleMenu.bind(this)}/>
           },
           {
             title: 'Menu 2',
             icon: <Icon name="bell" size={35} color='#ffffff' />,
-            renderScene: <Menu2 handleMenu={this._handleMenu.bind(this)}/>
+            renderScene: <Menu2 handleMenu={this.handleMenu.bind(this)}/>
           },
           {
             title: 'Menu 3',
             icon: <Icon name="calendar" size={35} color='#ffffff' />,
-            renderScene: <Menu3 handleMenu={this._handleMenu.bind(this)}/>
+            renderScene: <Menu3 handleMenu={this.handleMenu.bind(this)}/>
           },
           {
             title: 'Menu 4',
             icon: <Icon name="cart" size={35} color='#ffffff' />,
-            renderScene: <Menu4 handleMenu={this._handleMenu.bind(this)}/>
+            renderScene: <Menu4 handleMenu={this.handleMenu.bind(this)}/>
           },
           {
             title: 'Menu 5',
             icon: <Icon name="chart" size={35} color='#ffffff' />,
-            renderScene: <Menu5 handleMenu={this._handleMenu.bind(this)}/>
+            renderScene: <Menu5 handleMenu={this.handleMenu.bind(this)}/>
           },
           {
             title: 'Menu 6',
             icon: <Icon name="heart" size={35} color='#ffffff' />,
-            renderScene: <Menu6 handleMenu={this._handleMenu.bind(this)}/>
+            renderScene: <Menu6 handleMenu={this.handleMenu.bind(this)}/>
           },
           {
             title: 'Menu 7',
             icon: <Icon name="gear" size={35} color='#ffffff' />,
-            renderScene: <Menu7 handleMenu={this._handleMenu.bind(this)}/>
+            renderScene: <Menu7 handleMenu={this.handleMenu.bind(this)}/>
           }
         ]}/>
 
@@ -86,7 +86,7 @@ class OffCanvasMenu extends Component {
     )
   }
 
-  _handleMenu() {
+  handleMenu() {
     const {menuOpen} = this.state
     this.setState({
       menuOpen: !menuOpen
