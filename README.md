@@ -20,7 +20,7 @@ Created with [React Native Animated](https://facebook.github.io/react-native/doc
 ![Preview](./visuals/OffCanvasReveal.gif)
 
 ## How to use
-There is a bit of configuration needed to use the menu. First, install the component with NPM:
+There is a bit of configuration needed to use the menu. First, let's install the component with NPM:
 
 ```bash
 npm install react-native-off-canvas-menu --save
