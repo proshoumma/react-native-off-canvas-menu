@@ -1,6 +1,6 @@
 {
   "name": "react-native-off-canvas-menu",
-  "description": "some beautifully crafted off canvas menu components for react native",
+  "description": "beautifully crafted off canvas menu components for react native",
   "author": "Provash Shoumma <provash.shoumma@gmail.com> (http://asprov.net)",
   "version": "0.1.31",
   "main": "index.js",
