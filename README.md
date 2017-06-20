@@ -95,22 +95,22 @@ render() {
 There you go! Now you have a beautiful menu for your application :-)
 
 ## Component Props
-###active
+### active
 This is a Boolean type prop. It is required (`React.PropTypes.bool.isRequired`). It is the open and close state of the menu. You can use it for ..... only opening and closing the menu :-p
 
-###onMenuPress
+### onMenuPress
 This is a function type prop. It is required (`React.PropTypes.func.isRequired`). This is the function which you need to pass to the component to let it close the menu when a menu item is pressed. This is React after all :D
 
-###backgroundColor
+### backgroundColor
 This is a string type prop. It is not required (`React.PropTypes.string`). The default value is `#222222` (which is a nice color for background).
 
-###menuTextStyles
+### menuTextStyles
 This is a object type prop. It is not required (`React.PropTypes.object`). The default object is `{ color: 'white' }`. Since the menu title is a `<Text>` component, you can use any styling that is compatible with it.
 
-###handleBackPress
+### handleBackPress
 This is a magic! Not really :-). This is a Boolean type prop. It is not required (`React.PropTypes.bool`). It adds a listener for the back button of Android devices when the menu is opened and removes the listener when the menu is closed. Default value is `true`.
 
-###menuItems
+### menuItems
 This is where the magic happens, really!!!. It is an array type prop and oh yes, it is required (`React.PropTypes.array.isRequired`). You just need to pass an array of `title`, `icon` and `component` object, and boom, you got a navigation system with your menu! Here is the structure:
 
 ```javascript
@@ -130,7 +130,7 @@ This is where the magic happens, really!!!. It is an array type prop and oh yes,
 }
 ```
 
-##License
+## License
 [MIT License](https://github.com/shoumma/react-native-off-canvas-menu/blob/master/LICENSE). Do whatever you want to do.
 
 ## Credits
