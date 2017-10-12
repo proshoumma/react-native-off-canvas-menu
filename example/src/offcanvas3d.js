@@ -139,12 +139,28 @@ class OffCanvas3D extends Component {
     }
   }
 
+  // calculates animate stuff values for right and left side menus
+  _takeAnimateStuffValues() {
+    const screenWidth = Dimensions.get('window').width
+    if (this.props.rightSideMenu) {
+      return {
+        activityLeftPos: this.props.active ? -150 : 0,
+        scaleSize: this.props.active ? .8 : 1,
+        rotate: this.props.active ? -1 : 0,
+        menuTranslateX: this.props.active? screenWidth - 150 : screenWidth + 150
+      }
+    }
+    return {
+      activityLeftPos: this.props.active ? 150 : 0,
+      scaleSize: this.props.active ? .8 : 1,
+      rotate: this.props.active ? 1 : 0,
+      menuTranslateX: this.props.active? 0 : -150
+    }
+  }
+
   // animate stuffs with hard coded values for fine tuning
   _animateStuffs() {
-    const activityLeftPos = this.props.active ? 150 : 0
-    const scaleSize = this.props.active ? .8 : 1
-    const rotate = this.props.active ? 1 : 0
-    const menuTranslateX = this.props.active? 0 : -150
+    const {activityLeftPos,scaleSize, rotate, menuTranslateX} = this._takeAnimateStuffValues()
 
     Animated.parallel([
       Animated.timing(this.state.activityLeftPos, { toValue: activityLeftPos, duration: this.state.animationDuration }),

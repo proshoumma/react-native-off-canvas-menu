@@ -22,9 +22,9 @@ export default class Menu6 extends Component {
         <Text style={styles.instructions}>
           This is Menu - 6
         </Text>
-        <TouchableOpacity onPress={ () => this.props.handleMenu() }>
+        <TouchableOpacity onPress={ () => this.props.handleMenu(true) }>
           <View style={styles.btnContainer}>
-            <Text style={styles.btnText}>{'Toggle Menu'.toUpperCase()}</Text>
+            <Text style={styles.btnText}>{'Toggle 3D Menu'.toUpperCase()}</Text>
           </View>
         </TouchableOpacity>
       </View>

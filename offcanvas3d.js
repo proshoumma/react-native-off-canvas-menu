@@ -183,14 +183,16 @@ OffCanvas3D.propTypes = {
   menuItems: React.PropTypes.array.isRequired,
   backgroundColor: React.PropTypes.string,
   menuTextStyles: React.PropTypes.object,
-  handleBackPress: React.PropTypes.bool
+  handleBackPress: React.PropTypes.bool,
+  rightSideMenu: React.PropTypes.bool
 }
 
 // set default props
 OffCanvas3D.defaultProps = {
   backgroundColor: '#222222',
   menuTextStyles: { color: 'white' },
-  handleBackPress: true
+  handleBackPress: true,
+  rightSideMenu: false
 }
 
 export default OffCanvas3D
