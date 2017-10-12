@@ -6,7 +6,8 @@ import {
   StatusBar
 } from 'react-native'
 import Icon from 'react-native-vector-icons/EvilIcons'
-import {OffCanvasReveal} from 'react-native-off-canvas-menu'
+import OffCanvasReveal from './src/offcanvasReveal'
+import OffCanvas3d from './src/offcanvas3d'
 
 import Menu1 from './menuScenes/menu1'
 import Menu2 from './menuScenes/menu2'
@@ -21,7 +22,8 @@ class OffCanvasMenu extends Component {
     super(props)
 
     this.state = {
-      menuOpen: false
+      menuOpen: false,
+      menu3dOpen: false
     }
   }
 
@@ -32,6 +34,44 @@ class OffCanvasMenu extends Component {
         animated={true}
       />
     : null
+
+    const menuItems = [
+      {
+        title: 'Menu 1',
+        icon: <Icon name="camera" size={35} color='#ffffff' />,
+        renderScene: <Menu1 handleMenu={this.handleMenu.bind(this)}/>
+      },
+      {
+        title: 'Menu 2',
+        icon: <Icon name="bell" size={35} color='#ffffff' />,
+        renderScene: <Menu2 handleMenu={this.handleMenu.bind(this)}/>
+      },
+      {
+        title: 'Menu 3',
+        icon: <Icon name="calendar" size={35} color='#ffffff' />,
+        renderScene: <Menu3 handleMenu={this.handleMenu.bind(this)}/>
+      },
+      {
+        title: 'Menu 4',
+        icon: <Icon name="cart" size={35} color='#ffffff' />,
+        renderScene: <Menu4 handleMenu={this.handleMenu.bind(this)}/>
+      },
+      {
+        title: 'Menu 5',
+        icon: <Icon name="chart" size={35} color='#ffffff' />,
+        renderScene: <Menu5 handleMenu={this.handleMenu.bind(this)}/>
+      },
+      {
+        title: '3D Menu 6',
+        icon: <Icon name="heart" size={35} color='#ffffff' />,
+        renderScene: <Menu6 handleMenu={this.handleMenu.bind(this)}/>
+      },
+      {
+        title: 'Menu 7',
+        icon: <Icon name="gear" size={35} color='#ffffff' />,
+        renderScene: <Menu7 handleMenu={this.handleMenu.bind(this)}/>
+      }
+    ]
 
     return (
       <View style={{flex: 1}}>
@@ -44,50 +84,26 @@ class OffCanvasMenu extends Component {
         backgroundColor={'#222222'}
         menuTextStyles={{color: 'white'}}
         handleBackPress={true}
-        menuItems={[
-          {
-            title: 'Menu 1',
-            icon: <Icon name="camera" size={35} color='#ffffff' />,
-            renderScene: <Menu1 handleMenu={this.handleMenu.bind(this)}/>
-          },
-          {
-            title: 'Menu 2',
-            icon: <Icon name="bell" size={35} color='#ffffff' />,
-            renderScene: <Menu2 handleMenu={this.handleMenu.bind(this)}/>
-          },
-          {
-            title: 'Menu 3',
-            icon: <Icon name="calendar" size={35} color='#ffffff' />,
-            renderScene: <Menu3 handleMenu={this.handleMenu.bind(this)}/>
-          },
-          {
-            title: 'Menu 4',
-            icon: <Icon name="cart" size={35} color='#ffffff' />,
-            renderScene: <Menu4 handleMenu={this.handleMenu.bind(this)}/>
-          },
-          {
-            title: 'Menu 5',
-            icon: <Icon name="chart" size={35} color='#ffffff' />,
-            renderScene: <Menu5 handleMenu={this.handleMenu.bind(this)}/>
-          },
-          {
-            title: 'Menu 6',
-            icon: <Icon name="heart" size={35} color='#ffffff' />,
-            renderScene: <Menu6 handleMenu={this.handleMenu.bind(this)}/>
-          },
-          {
-            title: 'Menu 7',
-            icon: <Icon name="gear" size={35} color='#ffffff' />,
-            renderScene: <Menu7 handleMenu={this.handleMenu.bind(this)}/>
-          }
-        ]}/>
+        menuItems={menuItems}/>
+
+        <OffCanvas3d
+          active={this.state.menu3dOpen}
+          onMenuPress={this.handleMenu.bind(this)}
+          backgroundColor={'#222222'}
+          menuTextStyles={{color: 'white'}}
+          handleBackPress={true}
+          rightSideMenu={true}
+          menuItems={menuItems}/>
 
       </View>
     )
   }
 
-  handleMenu() {
-    const {menuOpen} = this.state
+  handleMenu(update3dMenu = false) {
+    const {menuOpen, menu3dOpen} = this.state
+    if (update3dMenu) {
+      return this.setState({menu3dOpen: !menu3dOpen})
+    }
     this.setState({
       menuOpen: !menuOpen
     })

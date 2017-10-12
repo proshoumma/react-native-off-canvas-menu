@@ -130,10 +130,23 @@ class OffCanvasReveal extends Component {
     }
   }
 
+  _takeAnimateStuffValues() {
+    const screenWidth = Dimensions.get('window').width
+    if (this.props.rightSideMenu) {
+      return {
+        activityLeftPos: this.props.active ? -250 : 0,
+        menuTranslateX: this.props.active? screenWidth - 150 : screenWidth + 150
+      }
+    }
+    return {
+      activityLeftPos: this.props.active ? 250 : 0,
+      menuTranslateX: this.props.active? 0 : -150
+    }
+  }
+
   // animate stuffs with hard coded values for fine tuning
   _animateStuffs() {
-    const activityLeftPos = this.props.active ? 250 : 0
-    const menuTranslateX = this.props.active? 0 : -150
+    const {activityLeftPos, menuTranslateX} = this._takeAnimateStuffValues()
 
     Animated.parallel([
       Animated.timing(this.state.activityLeftPos, { toValue: activityLeftPos, duration: this.state.animationDuration }),
@@ -170,14 +183,16 @@ OffCanvasReveal.propTypes = {
   menuItems: React.PropTypes.array.isRequired,
   backgroundColor: React.PropTypes.string,
   menuTextStyles: React.PropTypes.object,
-  handleBackPress: React.PropTypes.bool
+  handleBackPress: React.PropTypes.bool,
+  rightSideMenu: React.PropTypes.bool
 }
 
 // set default props
 OffCanvasReveal.defaultProps = {
   backgroundColor: '#222222',
   menuTextStyles: { color: 'white' },
-  handleBackPress: true
+  handleBackPress: true,
+  rightSideMenu: false
 }
 
 export default OffCanvasReveal
