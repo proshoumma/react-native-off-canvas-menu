@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {
   Dimensions,
   Text,
@@ -165,12 +166,12 @@ class OffCanvasReveal extends Component {
 
 // validate props
 OffCanvasReveal.propTypes = {
-  active: React.PropTypes.bool.isRequired,
-  onMenuPress: React.PropTypes.func.isRequired,
-  menuItems: React.PropTypes.array.isRequired,
-  backgroundColor: React.PropTypes.string,
-  menuTextStyles: React.PropTypes.object,
-  handleBackPress: React.PropTypes.bool
+  active: PropTypes.bool.isRequired,
+  onMenuPress: PropTypes.func.isRequired,
+  menuItems: PropTypes.array.isRequired,
+  backgroundColor: PropTypes.string,
+  menuTextStyles: PropTypes.object,
+  handleBackPress: PropTypes.bool
 }
 
 // set default props
