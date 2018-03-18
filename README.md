@@ -110,11 +110,11 @@ This is a object type prop. It is not required (`React.PropTypes.object`). The d
 ### handleBackPress
 This is a magic! Not really :-). This is a Boolean type prop. It is not required (`React.PropTypes.bool`). It adds a listener for the back button of Android devices when the menu is opened and removes the listener when the menu is closed. Default value is `true`.
 
-### menuItems
-This is where the magic happens, really!!!. It is an array type prop and oh yes, it is required (`React.PropTypes.array.isRequired`). You just need to pass an array of `title`, `icon` and `component` object, and boom, you got a navigation system with your menu! Here is the structure:
-
 ### rightSide
 This is a boolean type prop. It is not required (`React.PropTypes.bool`) The default value is `false`. It makes the menu appear from the right side.
+
+### menuItems
+This is where the magic happens, really!!!. It is an array type prop and oh yes, it is required (`React.PropTypes.array.isRequired`). You just need to pass an array of `title`, `icon` and `component` object, and boom, you got a navigation system with your menu! Here is the structure:
 
 ```javascript
 {
