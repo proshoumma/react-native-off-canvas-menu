@@ -113,6 +113,9 @@ This is a magic! Not really :-). This is a Boolean type prop. It is not required
 ### menuItems
 This is where the magic happens, really!!!. It is an array type prop and oh yes, it is required (`React.PropTypes.array.isRequired`). You just need to pass an array of `title`, `icon` and `component` object, and boom, you got a navigation system with your menu! Here is the structure:
 
+### rightSide
+This is a boolean type prop. It is not required (`React.PropTypes.bool`) The default value is `false`. It makes the menu appear from the right side.
+
 ```javascript
 {
   title: [Title for menu],
