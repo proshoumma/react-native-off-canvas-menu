@@ -26,7 +26,8 @@ class OffCanvas3D extends Component {
       animatedStagArr: [],
       menuItems: this.props.menuItems,
       activeMenu: 0,
-      menuItemAnimation: this.props.menuItemAnimation
+      menuItemAnimation: this.props.menuItemAnimation,
+      sideMenuWidth: this.props.sideMenuWidth
     }
   }
 
@@ -151,10 +152,11 @@ class OffCanvas3D extends Component {
 
   // animate stuffs with hard coded values for fine tuning
   _animateStuffs() {
-    const activityLeftPos = this.props.active ? 150 : 0
-    const scaleSize = this.props.active ? .8 : 1
-    const rotate = this.props.active ? 1 : 0
-    const menuTranslateX = this.props.active? 0 : -150
+    const activityLeftPos = this.props.active ? this.state.sideMenuWidth : 0;
+    const scaleSize = this.props.active ? 0.8 : 1;
+    const rotate = this.props.active ? 1 : 0;
+    const menuTranslateX = this.props.active ? 0 : -this.state.sideMenuWidth;
+
 
     Animated.parallel([
       Animated.timing(this.state.activityLeftPos, { toValue: activityLeftPos, duration: this.state.animationDuration }),
@@ -193,14 +195,18 @@ OffCanvas3D.propTypes = {
   menuItems: PropTypes.array.isRequired,
   backgroundColor: PropTypes.string,
   menuTextStyles: PropTypes.object,
-  handleBackPress: PropTypes.bool
+  handleBackPress: PropTypes.bool,
+  menuItemAnimation: PropTypes.bool,
+  sideMenuWidth: PropTypes.number
 }
 
 // set default props
 OffCanvas3D.defaultProps = {
   backgroundColor: '#222222',
   menuTextStyles: { color: 'white' },
-  handleBackPress: true
+  handleBackPress: true,
+  menuItemAnimation: false,
+  sideMenuWidth: 150
 }
 
 export default OffCanvas3D
