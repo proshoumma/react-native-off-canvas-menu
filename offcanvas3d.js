@@ -25,7 +25,8 @@ class OffCanvas3D extends Component {
       stagArr: [],
       animatedStagArr: [],
       menuItems: this.props.menuItems,
-      activeMenu: 0
+      activeMenu: 0,
+      menuItemAnimation: this.props.menuItemAnimation
     }
   }
 
@@ -65,7 +66,15 @@ class OffCanvas3D extends Component {
       return (
         <TouchableWithoutFeedback key={index} onPress={this._handlePress.bind(this, index)} style={{backgroundColor: 'red'}}>
           <Animated.View
-          style={{ transform: [{ translateX: this.state.animatedStagArr[index] }] }}>
+            style={
+              this.state.menuItemAnimation
+                ? {
+                    transform: [
+                      { translateX: this.state.animatedStagArr[index] }
+                    ]
+                  }
+                : {}
+            }>
             <View style={styles.menuItemContainer}>
               {this.state.menuItems[index].icon}
               <Text style={[styles.menuItem, { ...this.props.menuTextStyles }]}>
