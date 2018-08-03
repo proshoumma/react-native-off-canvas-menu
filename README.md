@@ -75,6 +75,8 @@ render() {
       backgroundColor={'#222222'}
       menuTextStyles={{color: 'white'}}
       handleBackPress={true}
+      menuItemAnimation={true} // true : enable side menu animation and false : disable side menu animation
+      sideMenuWidth={250} 
       menuItems={[
         {
           title: 'Menu 1',
@@ -109,6 +111,12 @@ This is a object type prop. It is not required (`React.PropTypes.object`). The d
 
 ### handleBackPress
 This is a magic! Not really :-). This is a Boolean type prop. It is not required (`React.PropTypes.bool`). It adds a listener for the back button of Android devices when the menu is opened and removes the listener when the menu is closed. Default value is `true`.
+
+### menuItemAnimation
+This is a Boolean type prop. It is not required (`React.PropTypes.boolean`). The default value is `false`.
+
+### sideMenuWidth 
+This is a Number type prop. It is not required(`React.PropTypes.number`). The default value is `150`
 
 ### menuItems
 This is where the magic happens, really!!!. It is an array type prop and oh yes, it is required (`React.PropTypes.array.isRequired`). You just need to pass an array of `title`, `icon` and `component` object, and boom, you got a navigation system with your menu! Here is the structure:
