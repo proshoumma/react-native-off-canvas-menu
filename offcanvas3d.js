@@ -14,9 +14,7 @@ import {
 class OffCanvas3D extends Component {
   constructor(props) {
     super(props)
-
     this._hardwareBackHandler = this._hardwareBackHandler.bind(this)
-
     this.state = {
       activityLeftPos : new Animated.Value(0),
       scaleSize : new Animated.Value(1.0),
@@ -58,15 +56,15 @@ class OffCanvas3D extends Component {
   render() {
     const rotateVal = this.state.rotate.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '-10deg']
+      outputRange: ['0deg', this.props.right? '10deg' : '-10deg']
     })
-
+    const menuItemContainerPadding = this.props.rightSide ? {paddingRight: 20} : {paddingLeft: 20}
     const staggeredAnimatedMenus = this.state.stagArr.map((index) => {
       return (
         <TouchableWithoutFeedback key={index} onPress={this._handlePress.bind(this, index)} style={{backgroundColor: 'red'}}>
           <Animated.View
           style={{ transform: [{ translateX: this.state.animatedStagArr[index] }] }}>
-            <View style={styles.menuItemContainer}>
+            <View style={[styles.menuItemContainer, menuItemContainerPadding]}>
               {this.state.menuItems[index].icon}
               <Text style={[styles.menuItem, { ...this.props.menuTextStyles }]}>
                 {this.state.menuItems[index].title}
@@ -76,7 +74,6 @@ class OffCanvas3D extends Component {
         </TouchableWithoutFeedback>
       )
     })
-
     return (
       <View style={[styles.offCanvasContainer, {
         flex: 1,
@@ -107,7 +104,7 @@ class OffCanvas3D extends Component {
           transform: [
             { translateX: this.state.activityLeftPos },
             { scale: this.state.scaleSize },
-            { rotateY: rotateVal }
+            { rotateY: rotateVal },
           ]
         }]}>
 
@@ -142,10 +139,12 @@ class OffCanvas3D extends Component {
 
   // animate stuffs with hard coded values for fine tuning
   _animateStuffs() {
-    const activityLeftPos = this.props.active ? 150 : 0
+    const {width} = Dimensions.get('window')
+    const {rightSide} = this.props
+    const activityLeftPos = this.props.active ? rightSide ? -150 : 150 : 0
     const scaleSize = this.props.active ? .8 : 1
     const rotate = this.props.active ? 1 : 0
-    const menuTranslateX = this.props.active? 0 : -150
+    const menuTranslateX = this.props.active ? rightSide ? (width-150) : 0 : rightSide ? (width+150) : -150
 
     Animated.parallel([
       Animated.timing(this.state.activityLeftPos, { toValue: activityLeftPos, duration: this.state.animationDuration }),
@@ -184,14 +183,16 @@ OffCanvas3D.propTypes = {
   menuItems: PropTypes.array.isRequired,
   backgroundColor: PropTypes.string,
   menuTextStyles: PropTypes.object,
-  handleBackPress: PropTypes.bool
+  handleBackPress: PropTypes.bool,
+  rightSide: PropTypes.bool
 }
 
 // set default props
 OffCanvas3D.defaultProps = {
   backgroundColor: '#222222',
   menuTextStyles: { color: 'white' },
-  handleBackPress: true
+  handleBackPress: true,
+  rightSide: false
 }
 
 export default OffCanvas3D
@@ -205,7 +206,6 @@ const styles = StyleSheet.create({
     paddingTop: 30
   },
   menuItemContainer: {
-    paddingLeft: 20,
     flexDirection: 'row',
     alignItems: 'center'
   },
