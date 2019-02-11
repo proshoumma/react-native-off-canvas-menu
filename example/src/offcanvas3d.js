@@ -91,7 +91,7 @@ class OffCanvas3D extends Component {
           right: 0,
           bottom: 0
         }}>
-          <Animated.View style={styles.menuItemsContainer}>
+          <Animated.View style={[styles.menuItemsContainer, { ...this.props.menuContainerStyles}]}>
               {staggeredAnimatedMenus}
           </Animated.View>
         </ScrollView>
@@ -178,18 +178,20 @@ class OffCanvas3D extends Component {
 
 // validate props
 OffCanvas3D.propTypes = {
-  active: React.PropTypes.bool.isRequired,
-  onMenuPress: React.PropTypes.func.isRequired,
-  menuItems: React.PropTypes.array.isRequired,
-  backgroundColor: React.PropTypes.string,
-  menuTextStyles: React.PropTypes.object,
-  handleBackPress: React.PropTypes.bool
+  active: PropTypes.bool.isRequired,
+  onMenuPress: PropTypes.func.isRequired,
+  menuItems: PropTypes.array.isRequired,
+  backgroundColor: PropTypes.string,
+  menuTextStyles: PropTypes.object,
+  menuContainerStyles: PropTypes.object,
+  handleBackPress: PropTypes.bool
 }
 
 // set default props
 OffCanvas3D.defaultProps = {
   backgroundColor: '#222222',
   menuTextStyles: { color: 'white' },
+  menuContainerStyles: {alignItems: 'flex-start'},
   handleBackPress: true
 }
 
