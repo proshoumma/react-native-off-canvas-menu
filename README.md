@@ -66,13 +66,13 @@ handleMenu() {
 }
 ```
 
-Navigate to a menu item dynamically:
+Navigate to a menu item dynamically (index):
 
 ```javascript
-this._myMenu.goToMenu(index);
+this._myMenu.goToMenu(1);
 ```
 
-Change a title of menu item dynamically:
+Change a title of menu item dynamically (index, new title):
 
 ```javascript
 this._myMenu.changeTitleItem(1, "Personal Title");
