@@ -75,7 +75,7 @@ this._myMenu.goToMenu(1);
 Change a title of menu item dynamically (index, new title):
 
 ```javascript
-this._myMenu.changeTitleItem(1, "Personal Title");
+this._myMenu.changeTitleItem(1, 'Personal Title');
 ```
 
 This state management can be done by [Redux](https://github.com/reactjs/redux), [MobX](https://github.com/mobxjs/mobx) or anything else. For simplicity, I used the vanilla component state. You can use yours.
