@@ -8,12 +8,15 @@ import {
   Animated,
   TouchableWithoutFeedback,
   ScrollView,
-  BackAndroid
+  BackHandler
 } from 'react-native'
 
 class OffCanvasReveal extends Component {
   constructor(props) {
     super(props)
+
+    this.goToMenu = this._goToMenu.bind(this)
+    this.changeTitleItem = this._changeTitleItem.bind(this)
 
     this._hardwareBackHandler = this._hardwareBackHandler.bind(this)
 
@@ -45,11 +48,16 @@ class OffCanvasReveal extends Component {
     this._animateStuffs()
 
     if(this.props.handleBackPress && this.props.active) {
-      BackAndroid.addEventListener('hardwareBackPress', this._hardwareBackHandler)
+      this.backHandler = BackHandler.addEventListener('hardwareBackPress', this._hardwareBackHandler)
     }
 
     if(this.props.handleBackPress && !this.props.active) {
-      BackAndroid.removeEventListener('hardwareBackPress', this._hardwareBackHandler)
+      try {
+         this.backHandler.remove();
+      }
+      catch (e) {
+         this.backHandler = undefined;
+      }
     }
   }
 
@@ -162,6 +170,32 @@ class OffCanvasReveal extends Component {
     ])
     .start()
   }
+
+  // go to menu item
+  _goToMenu(index){
+
+    if(Number.isInteger(index) && this.state.menuItems.length < index){
+      console.warn('item does not exist');
+      return false;
+    }
+
+    this.setState({ activeMenu: index });
+  }
+
+  // change a menu title by index
+  _changeTitleItem(index, title){
+
+    if(Number.isInteger(index) && this.state.menuItems.length < index){
+      console.warn('item does not exist');
+      return false;
+    }
+
+    let menuItem = this.state.menuItems;
+    menuItem[index].title = title;
+
+    this.setState({menuItem});
+  }
+
 }
 
 // validate props
