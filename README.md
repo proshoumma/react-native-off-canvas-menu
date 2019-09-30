@@ -1,6 +1,8 @@
 # react-native-off-canvas-menu
 Beautifully crafted off canvas menu components for react native applications.
 
+Working with react-native 0.60.5
+
 ## Features -
 * Gesture Support
 * Orientation Compatible
@@ -9,6 +11,8 @@ Beautifully crafted off canvas menu components for react native applications.
 * Scroll support for a long listed menu
 * Automatically change scene for each menu item
 * Hardware back button handling for Android
+* Navigate to a menu item dynamically
+* Change title of menu item dynamically
 
 Created with [React Native Animated](https://facebook.github.io/react-native/docs/animated.html) library. The component is compatible with Android only. There is an example app with this repository in the `example` folder.
 
@@ -62,6 +66,18 @@ handleMenu() {
 }
 ```
 
+Navigate to a menu item dynamically (index):
+
+```javascript
+this._myMenu.goToMenu(1);
+```
+
+Change a title of menu item dynamically (index, new title):
+
+```javascript
+this._myMenu.changeTitleItem(1, 'Personal Title');
+```
+
 This state management can be done by [Redux](https://github.com/reactjs/redux), [MobX](https://github.com/mobxjs/mobx) or anything else. For simplicity, I used the vanilla component state. You can use yours.
 
 Now, you can use the component inside of your render method:
@@ -75,6 +91,7 @@ render() {
       backgroundColor={'#222222'}
       menuTextStyles={{color: 'white'}}
       handleBackPress={true}
+      ref={component => this._myMenu = component} {...this.props}
       menuItems={[
         {
           title: 'Menu 1',
