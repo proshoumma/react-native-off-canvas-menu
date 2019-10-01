@@ -3,7 +3,7 @@ Beautifully crafted off canvas menu components for react native applications.
 
 Working with react-native 0.60.5
 
-## Features -
+## Features
 * Gesture Support
 * Orientation Compatible
 * Smooth Animation
