@@ -63,7 +63,8 @@ class OffCanvasReveal extends Component {
 
   render() {
     const staggeredAnimatedMenus = this.state.stagArr.map((index) => {
-      return (
+
+      return (this.state.menuItems[index].title!=null) ? (
         <TouchableWithoutFeedback key={index} onPress={this._handlePress.bind(this, index)} style={{backgroundColor: 'red'}}>
           <Animated.View
           style={{ transform: [{ translateX: this.state.animatedStagArr[index] }] }}>
@@ -75,7 +76,7 @@ class OffCanvasReveal extends Component {
             </View>
           </Animated.View>
         </TouchableWithoutFeedback>
-      )
+      ) : (null);
     })
 
     return (
